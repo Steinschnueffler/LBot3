@@ -13,8 +13,15 @@ public class ClearPlugin extends Plugin{
 	
 	@Override
 	protected void onMessageWithNameReceived(MessageReceivedEvt evt) {
-		evt.channel.getHistory().getRetrievedHistory().forEach(e -> e.delete());
-		PluginUtils.print("Cleared Channel!", evt.channel);
+		new Thread(() -> {
+			final int[] counter = new int[1];
+			evt.channel.getIterableHistory().forEach(e -> {
+				e.delete().queue();
+				counter[0]++;
+			});
+			PluginUtils.print("Cleared " + counter[0] + " Messages!", evt.channel);
+		}).start();
+		PluginUtils.print("Clear process thread started...", evt.channel);
 	}
 
 }
