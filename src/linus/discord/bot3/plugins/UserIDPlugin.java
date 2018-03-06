@@ -16,7 +16,7 @@ public class UserIDPlugin extends Plugin{
 		String content = evt.content.trim();
 		if(!content.isEmpty()) {
 			StringBuilder sb = new StringBuilder();
-			evt.guild.getMembersByName(content, true).forEach(e -> sb
+			evt.guild.getMembersByEffectiveName(content.substring(1), true).forEach(e -> sb
 					.append(e.getUser().getId())
 					.append(System.lineSeparator())
 				);
