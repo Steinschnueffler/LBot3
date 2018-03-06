@@ -22,6 +22,7 @@ public class Main {
 				new ServerIDPlugin(),
 				new ChannelIDPlugin(),
 				new UserIDPlugin(),
+				new ClearPlugin(),
 				new MatchPlugin(),
 				new OrPlugin(),
 				new SlapPlugin(),
