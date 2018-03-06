@@ -14,12 +14,13 @@ public class HelpPlugin extends Plugin{
 	@Override
 	protected void onMessageWithNameReceived(MessageReceivedEvt evt) {
 		StringBuilder sb = new StringBuilder();
-		for(Plugin p : evt.bot.getPlugins())
+		evt.bot.getPlugins().forEach(p -> {
 			sb
 				.append(p.NAME)
 				.append(": ")
 				.append(p.DESCRIPTION)
 				.append(System.lineSeparator());
+		});
 		PluginUtils.print(sb.toString(), evt.channel);
 	}
 	
