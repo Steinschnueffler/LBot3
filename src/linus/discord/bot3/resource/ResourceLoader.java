@@ -27,7 +27,7 @@ public class ResourceLoader {
 	private static final Path SLAP_IMAGE_FOLDER = SPECIFIC_FOLDER.resolve("slapImages/");
 	private static final ArrayList<Path> SLAPS = new ArrayList<>();
 	
-	private static final String DEFAULT_SLAP = "defaultSlap.gif";
+	private static final String DEFAULT_SLAP = "defaultSlap.png";
 	private static final SecureRandom rand = new SecureRandom();
 	
 	private static final String CUSTOM_COMMAND_FILE = "customCommands.txt";
