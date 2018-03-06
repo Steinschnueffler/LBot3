@@ -1,0 +1,3 @@
+!author = Linus Dierheimer
+!name = LBot3
+!github = https://github.com/Steinschnueffler/LBot3

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,6 +35,7 @@ public class ResourceLoader {
 	private static final String CUSTOM_COMMAND_SEPERATOR = " = ";
 
 	private static final Path SPECIFIC_COMMAND_FILE = SPECIFIC_FOLDER.resolve("SpecificCommands.txt");
+	private static final String SPECIFIC_COMMAND_DEFAULT = "defaultSpecificCommands.txt";
 	
 	static {
 		try {
@@ -66,8 +68,15 @@ public class ResourceLoader {
 	}
 	
 	private static Map<String, String> loadCommands(Path p) throws IOException{
+		return loadCommands(Files.newBufferedReader(p));
+	}
+	
+	private static Map<String, String> loadCommands(InputStream in) throws IOException{
+		return loadCommands(new BufferedReader(new InputStreamReader(in)));
+	}
+	
+	private static Map<String, String> loadCommands(BufferedReader reader) throws IOException {
 		Map<String, String> map = new HashMap<>();
-		BufferedReader reader = Files.newBufferedReader(p);
 		String line;
 		while((line = reader.readLine()) != null) {
 			int split = line.indexOf(CUSTOM_COMMAND_SEPERATOR);
@@ -141,7 +150,10 @@ public class ResourceLoader {
 		
 	public static Map<String, String> loadSpecificCommands(){
 		try {
-			return loadCommands(SPECIFIC_COMMAND_FILE);
+			InputStream defStream = ResourceLoader.class.getResourceAsStream(SPECIFIC_COMMAND_DEFAULT);
+			Map<String, String> defMap = loadCommands(defStream);
+			defMap.putAll(loadCommands(SPECIFIC_COMMAND_FILE));
+			return defMap;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return new HashMap<>();
