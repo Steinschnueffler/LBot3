@@ -1,5 +1,6 @@
 package linus.discord.bot3.plugins;
 
+import linus.discord.bot3.Plugin;
 import linus.discord.bot3.events.MessageReceivedEvt;
 
 public class SpecificCommandPlugin extends Plugin{
@@ -13,8 +14,8 @@ public class SpecificCommandPlugin extends Plugin{
 	
 	@Override
 	public boolean onMessageReceived(MessageReceivedEvt event) {
-		if(Commands.getSpecific().containsKey(event.display)) {
-			PluginUtils.print(Commands.getSpecific().get(event.display), event.channel);
+		if(event.bot.getSpecificCommands().containsKey(event.display)) {
+			PluginUtils.print(event.bot.getSpecificCommands().get(event.display), event.channel);
 			return true;
 		}else {
 			return false;

@@ -1,7 +1,8 @@
 package linus.discord.bot3.plugins;
 
+import linus.discord.bot3.Plugin;
 import linus.discord.bot3.events.MessageReceivedEvt;
-import net.dv8tion.jda.core.events.ShutdownEvent;
+import linus.discord.bot3.events.ShutdownEvt;
 
 public class SavePlugin extends Plugin {
 
@@ -14,13 +15,13 @@ public class SavePlugin extends Plugin {
 	
 	@Override
 	protected void onMessageWithNameReceived(MessageReceivedEvt evt) {
-		PluginUtils.saveResources();
+		PluginUtils.saveResources(evt.bot);
 		PluginUtils.print("All resources are being written...", evt.channel);
 	}
 	
 	@Override
-	public boolean onShutdown(ShutdownEvent event) {
-		PluginUtils.saveResources();
+	public boolean onShutdown(ShutdownEvt event) {
+		PluginUtils.saveResources(event.bot);
 		return false;
 	}
 }

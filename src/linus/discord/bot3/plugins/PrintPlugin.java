@@ -1,5 +1,6 @@
 package linus.discord.bot3.plugins;
 
+import linus.discord.bot3.Plugin;
 import linus.discord.bot3.events.MessageReceivedEvt;
 
 public class PrintPlugin extends Plugin{

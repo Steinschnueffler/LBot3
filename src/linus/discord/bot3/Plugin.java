@@ -1,7 +1,8 @@
-package linus.discord.bot3.plugins;
+package linus.discord.bot3;
 
 import linus.discord.bot3.events.MessageReceivedEvt;
-import net.dv8tion.jda.core.events.ShutdownEvent;
+import linus.discord.bot3.events.ShutdownEvt;
+import linus.discord.bot3.events.StartEvt;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
 
@@ -36,7 +37,11 @@ public abstract class Plugin{
 		return false;
 	}
 	
-	public boolean onShutdown(ShutdownEvent event) {
+	public boolean onShutdown(ShutdownEvt event) {
+		return false;
+	}
+	
+	public boolean onStart(StartEvt event) {
 		return false;
 	}
 	

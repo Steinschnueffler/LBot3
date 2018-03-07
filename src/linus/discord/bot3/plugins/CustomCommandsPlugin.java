@@ -1,5 +1,6 @@
 package linus.discord.bot3.plugins;
 
+import linus.discord.bot3.Plugin;
 import linus.discord.bot3.events.MessageReceivedEvt;
 
 import java.util.Optional;
@@ -15,7 +16,7 @@ public class CustomCommandsPlugin extends Plugin{
 	
 	@Override
 	protected void onMessageWithNameReceived(MessageReceivedEvt evt) {
-		Optional.ofNullable(Commands.getCustom(evt.guild.getId()))
+		Optional.ofNullable(evt.bot.getCustomCommands(evt.guild.getId()))
 			.filter(e -> !e.isEmpty())
 			.ifPresentOrElse(e -> {
 				StringBuilder sb = new StringBuilder();

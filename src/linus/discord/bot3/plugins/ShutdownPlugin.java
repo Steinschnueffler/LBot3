@@ -1,7 +1,8 @@
 package linus.discord.bot3.plugins;
 
+import linus.discord.bot3.Plugin;
 import linus.discord.bot3.events.MessageReceivedEvt;
-import net.dv8tion.jda.core.events.ShutdownEvent;
+import linus.discord.bot3.events.ShutdownEvt;
 import net.dv8tion.jda.core.requests.CloseCode;
 
 public class ShutdownPlugin extends Plugin{
@@ -20,9 +21,9 @@ public class ShutdownPlugin extends Plugin{
 	}
 	
 	@Override
-	public boolean onShutdown(ShutdownEvent event) {
-		if(event.getCloseCode() != CloseCode.GRACEFUL_CLOSE)
-			System.err.println("Application error: " + event.getCloseCode());
+	public boolean onShutdown(ShutdownEvt event) {
+		if(event.code != CloseCode.GRACEFUL_CLOSE)
+			System.err.println("Application error: " + event.code);
 		return false;
 	}
 

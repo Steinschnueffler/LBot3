@@ -2,16 +2,21 @@ package linus.discord.bot3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 import javax.security.auth.login.LoginException;
 
 import linus.discord.bot3.events.MessageReceivedEvt;
-import linus.discord.bot3.plugins.Plugin;
+import linus.discord.bot3.events.ShutdownEvt;
+import linus.discord.bot3.events.StartEvt;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.ShutdownEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
@@ -25,10 +30,32 @@ public class Bot {
 	
 	private List<Plugin> plugins = new ArrayList<>();
 	
+	private final Map<String, Map<String, String>> customCommands = new HashMap<>();
+	private final Map<String, String> specificCommands = new HashMap<>();
+	
 	public Bot(String token) {
 		builder = new JDABuilder(AccountType.BOT)
 			.addEventListener(new ListenerWrapper(this))
 			.setToken(token);	
+	}
+	
+	public Map<String, String> getSpecificCommands(){
+		return specificCommands;
+	}
+	
+	public Map<String, String> getCustomCommands(String id, Supplier<Map<String, String>> def){
+		if(!customCommands.containsKey(id))
+			customCommands.put(id, def.get());
+		
+		return customCommands.get(id);
+	}
+	
+	public Map<String, String> getCustomCommands(String id){
+		return customCommands.get(id);
+	}
+	
+	public Map<String, Map<String, String>> getAllCustomCommands(){
+		return customCommands;
 	}
 	
 	public List<Plugin> getPlugins(){
@@ -91,10 +118,21 @@ public class Bot {
 		
 		@Override
 		public void onShutdown(ShutdownEvent event) {
+			ShutdownEvt evt = new ShutdownEvt(bot, event);
 			for(Plugin p : plugins)
-				if(p.onShutdown(event))
+				if(p.onShutdown(evt))
 					return;
 		}
+		
+		@Override
+		public void onReady(ReadyEvent event) {
+			StartEvt evt = new StartEvt(bot, event);
+			for(Plugin p : plugins)
+				if(p.onStart(evt))
+					return;
+		}
+		
+		
 	}
 	
 }

@@ -2,6 +2,7 @@ package linus.discord.bot3.plugins;
 
 import java.util.Optional;
 
+import linus.discord.bot3.Plugin;
 import linus.discord.bot3.events.MessageReceivedEvt;
 
 public class SpecificCommandsPlugin extends Plugin{
@@ -15,7 +16,7 @@ public class SpecificCommandsPlugin extends Plugin{
 	
 	@Override
 	protected void onMessageWithNameReceived(MessageReceivedEvt evt) {
-		Optional.ofNullable(Commands.getSpecific())
+		Optional.ofNullable(evt.bot.getSpecificCommands())
 		.filter(e -> !e.isEmpty())
 		.ifPresentOrElse(e -> {
 			StringBuilder sb = new StringBuilder();

@@ -24,7 +24,7 @@ public class Main {
 				new UserIDPlugin(),
 				new ClearPlugin(),
 				new MatchPlugin(),
-				new OrPlugin(),
+				new DecidePlugin(),
 				new SlapPlugin(),
 				new SavePlugin(),
 				new ShutdownPlugin()

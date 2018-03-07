@@ -2,6 +2,7 @@ package linus.discord.bot3.plugins;
 
 import java.io.InputStream;
 
+import linus.discord.bot3.Bot;
 import linus.discord.bot3.resource.ResourceLoader;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -25,8 +26,12 @@ public class PluginUtils {
 		channel.sendFile(stream, fileName, new MessageBuilder(message).build()).queue();
 	}
 	
-	public static void saveResources() {
-		ResourceLoader.saveCustomCommands(Commands.getAllCustoms());
-		ResourceLoader.saveSpecificCommands(Commands.getSpecific());
+	public static void saveResources(Bot b) {
+		ResourceLoader.saveCustomCommands(b.getAllCustomCommands());
+		ResourceLoader.saveSpecificCommands(b.getSpecificCommands());
+	}
+	
+	public static void loadResources(Bot b) {
+		b.getSpecificCommands().putAll(ResourceLoader.loadSpecificCommands());
 	}
 }

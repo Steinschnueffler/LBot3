@@ -1,6 +1,8 @@
 package linus.discord.bot3.plugins;
 
+import linus.discord.bot3.Plugin;
 import linus.discord.bot3.events.MessageReceivedEvt;
+import linus.discord.bot3.resource.ResourceLoader;
 
 public class CreateCommandPlugin extends Plugin{
 	
@@ -13,20 +15,17 @@ public class CreateCommandPlugin extends Plugin{
 	
 	@Override
 	protected void onMessageWithNameReceived(MessageReceivedEvt evt) {
-		if(evt.contentCmd.length == 0) {
+		if(evt.contentCmd.length < 2) {
 			PluginUtils.print("You have to specify the name and the content of the command", evt.channel);
 			return;
 		}
 		String name = evt.contentCmd[0];
-		if(name.isEmpty()) {
-			PluginUtils.print("The command must have a content!", evt.channel);
-			return;
-		}
 		
 		String content = evt.content.substring(name.length());
 		
 		String id = evt.guild.getId();
-		Commands.getCustom(id).put(name, content);
+		evt.bot.getCustomCommands(id, () -> ResourceLoader.loadCustomCommands(id))
+			.put(name, content);
 		
 		PluginUtils.print("Command \"" + name + "\" succesfull created", evt.channel);
 	}

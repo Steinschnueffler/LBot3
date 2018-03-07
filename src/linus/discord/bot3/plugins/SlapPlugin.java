@@ -3,6 +3,7 @@ package linus.discord.bot3.plugins;
 import java.io.InputStream;
 
 import javafx.util.Pair;
+import linus.discord.bot3.Plugin;
 import linus.discord.bot3.events.MessageReceivedEvt;
 import linus.discord.bot3.resource.ResourceLoader;
 

@@ -1,7 +1,8 @@
 package linus.discord.bot3.plugins;
 
-import java.util.Map;
+import java.util.Optional;
 
+import linus.discord.bot3.Plugin;
 import linus.discord.bot3.events.MessageReceivedEvt;
 
 public class CustomCommandPlugin extends Plugin{
@@ -15,12 +16,14 @@ public class CustomCommandPlugin extends Plugin{
 	
 	@Override
 	public boolean onMessageReceived(MessageReceivedEvt event) {
-		Map<String, String> map = Commands.getCustom(event.guild.getId());
-		if(map.containsKey(event.display)) {
-			PluginUtils.print(map.get(event.display), event.channel);
-			return true;
-		}
-		return false;
+		boolean[] res = new boolean[1];
+		Optional.ofNullable(event.bot.getCustomCommands(event.guild.getId()))
+			.filter(e -> e.containsKey(event.command))
+			.ifPresent(e -> {
+				PluginUtils.print(e.get(event.command), event.channel);
+				res[0] = true;
+			});
+		return res[0];
 	}
 	
 }
