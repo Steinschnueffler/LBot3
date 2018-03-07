@@ -1,4 +1,1 @@
-!coolest person = you <3
-!author = Linus Dierheimer
-!name = LBot3
-!github = https://github.com/Steinschnueffler/LBot3
+!coolestPerson = you <3
