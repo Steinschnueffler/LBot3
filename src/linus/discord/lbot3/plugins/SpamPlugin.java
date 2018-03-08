@@ -31,8 +31,20 @@ public class SpamPlugin extends Plugin{
 			
 			String content = evt.content.substring(evt.contentCmd[0].length() + 1);
 			
-			for(int i = 0; i < howOften; i++)
-				PluginUtils.print(content, evt.channel);
+			if(content.length() > Message.MAX_CONTENT_LENGTH) {
+				PluginUtils.print("Content is to big", evt.channel);
+			}
+			
+			int counter = 0;
+			StringBuilder sb = new StringBuilder();
+			while(counter < howOften) {
+				sb.append(content).append(System.lineSeparator());
+				if(sb.length() + content.length() > Message.MAX_CONTENT_LENGTH) {
+					PluginUtils.print(sb.toString(), evt.channel);
+					sb = new StringBuilder();
+				}
+			}
+			PluginUtils.print(sb.toString(), evt.channel);
 			
 		}).start();
 	}
