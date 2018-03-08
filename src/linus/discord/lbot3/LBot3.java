@@ -18,6 +18,7 @@ import linus.discord.lbot3.plugins.SavePlugin;
 import linus.discord.lbot3.plugins.ServerIDPlugin;
 import linus.discord.lbot3.plugins.ShutdownPlugin;
 import linus.discord.lbot3.plugins.SlapPlugin;
+import linus.discord.lbot3.plugins.SpamPlugin;
 import linus.discord.lbot3.plugins.SpeakPlugin;
 import linus.discord.lbot3.plugins.SpecificCommandPlugin;
 import linus.discord.lbot3.plugins.SpecificCommandsPlugin;
@@ -47,6 +48,7 @@ public class LBot3 extends Bot{
 				new MatchPlugin(),
 				new DecidePlugin(),
 				new SlapPlugin(),
+				new SpamPlugin(),
 				new SavePlugin(),
 				new ShutdownPlugin()
 				
