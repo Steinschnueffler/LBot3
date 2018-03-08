@@ -2,6 +2,7 @@ package linus.discord.lbot3.plugins;
 
 import linus.discord.lbot3.Plugin;
 import linus.discord.lbot3.events.MessageReceivedEvt;
+import net.dv8tion.jda.core.entities.Message;
 
 public class SpamPlugin extends Plugin{
 
