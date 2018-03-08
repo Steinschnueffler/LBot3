@@ -28,10 +28,13 @@ public class PluginUtils {
 	
 	public static void saveResources(Bot b) {
 		ResourceLoader.saveCustomCommands(b.getAllCustomCommands());
-		ResourceLoader.saveSpecificCommands(b.getSpecificCommands());
 	}
 	
 	public static void loadResources(Bot b) {
 		b.getSpecificCommands().putAll(ResourceLoader.loadSpecificCommands());
+	}
+	
+	public static void loadCustomCommands(Bot b, String id) {
+		b.getAllCustomCommands().replace(id, ResourceLoader.loadCustomCommands(id));
 	}
 }

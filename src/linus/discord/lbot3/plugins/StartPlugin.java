@@ -16,6 +16,7 @@ public class StartPlugin extends Plugin{
 	@Override
 	protected void onMessageWithNameReceived(MessageReceivedEvt evt) {
 		PluginUtils.loadResources(evt.bot);
+		PluginUtils.loadCustomCommands(evt.bot, evt.guild.getId());
 		PluginUtils.print("restarted system, latest resource might be deleted.", evt.channel);
 	}
 	

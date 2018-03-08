@@ -9,6 +9,7 @@ import linus.discord.lbot3.plugins.CreateCommandPlugin;
 import linus.discord.lbot3.plugins.CustomCommandPlugin;
 import linus.discord.lbot3.plugins.CustomCommandsPlugin;
 import linus.discord.lbot3.plugins.DecidePlugin;
+import linus.discord.lbot3.plugins.DeleteCommandPlugin;
 import linus.discord.lbot3.plugins.HelpPlugin;
 import linus.discord.lbot3.plugins.MatchPlugin;
 import linus.discord.lbot3.plugins.OnlinePlugin;
@@ -36,6 +37,7 @@ public class LBot3 extends Bot{
 				new SpecificCommandsPlugin(),
 				new CreateCommandPlugin(),
 				new CustomCommandPlugin(),
+				new DeleteCommandPlugin(),
 				new CustomCommandsPlugin(),
 				new OnlinePlugin(),
 				new ServerIDPlugin(),

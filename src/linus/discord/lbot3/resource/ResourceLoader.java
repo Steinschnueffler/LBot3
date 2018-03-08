@@ -159,12 +159,4 @@ public class ResourceLoader {
 			return new HashMap<>();
 		}
 	}
-
-	public static void saveSpecificCommands(Map<String, String> map) {
-		try {
-			saveCommands(SPECIFIC_COMMAND_FILE, map);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }
