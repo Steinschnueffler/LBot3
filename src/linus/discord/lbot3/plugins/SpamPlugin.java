@@ -39,6 +39,7 @@ public class SpamPlugin extends Plugin{
 			StringBuilder sb = new StringBuilder();
 			while(counter < howOften) {
 				sb.append(content).append(System.lineSeparator());
+				counter++;
 				if(sb.length() + content.length() > Message.MAX_CONTENT_LENGTH) {
 					PluginUtils.print(sb.toString(), evt.channel);
 					sb = new StringBuilder();
