@@ -40,8 +40,23 @@ public class PluginUtils {
 	
 	public static String toBinary(String str) {
 		StringBuilder sb = new StringBuilder();
-		str.chars()
-			.forEach(i -> sb.append(Integer.toBinaryString(i)));
+		for(byte b : str.getBytes())
+			sb.append(toBinary(b));
 		return sb.toString();
 	}
+	
+	
+	public static String toBinary(byte b) {
+		String str = Integer.toBinaryString(b);
+		int missing = 8 - str.length();
+		return buildString("0", missing).concat(str);
+	}
+	
+	private static String buildString(String s, int count) {
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < count; i++)
+			sb.append(s);
+		return sb.toString();
+	}
+	
 }
