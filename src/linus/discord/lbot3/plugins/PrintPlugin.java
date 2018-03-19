@@ -14,8 +14,7 @@ public class PrintPlugin extends Plugin{
 	
 	@Override
 	protected void onMessageWithNameReceived(MessageReceivedEvt evt) {
-		String what = PluginUtils.normalize(evt.content);
-		PluginUtils.print(what, evt.channel);
+		PluginUtils.print(evt.content, evt.channel);
 	}
 	
 }

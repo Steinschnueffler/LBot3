@@ -119,6 +119,8 @@ public class Bot{
 				
 		@Override
 		public void onMessageReceived(MessageReceivedEvent event) {
+			if(event.getAuthor().isBot())
+				return;
 			MessageReceivedEvt evt = new MessageReceivedEvt(event, bot);
 			for(Plugin p : plugins)
 				if(p.onMessageReceived(evt))

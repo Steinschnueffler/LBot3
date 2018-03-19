@@ -9,7 +9,7 @@ public class ShutdownPlugin extends Plugin{
 
 	public ShutdownPlugin() {
 		super(
-			"!shutdown",
+			"!!shutdown",
 			"Exits this application"
 		);
 	}

@@ -8,7 +8,7 @@ public class SavePlugin extends Plugin {
 
 	public SavePlugin() {
 		super(
-			"!save",
+			"!!save",
 			"Saves all resources."
 		);
 	}

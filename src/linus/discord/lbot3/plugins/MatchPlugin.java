@@ -20,7 +20,7 @@ public class MatchPlugin extends Plugin{
 		}
 		String first = evt.contentCmd[0];
 		String second = evt.contentCmd[1];
-		int procent = (first.hashCode() | second.hashCode()) % 101;
+		int procent = (first.hashCode() ^ second.hashCode()) % 101;
 		
 		String str = new StringBuilder()
 			.append(">").append(first).append(System.lineSeparator())
