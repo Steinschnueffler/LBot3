@@ -1,5 +1,7 @@
 package linus.discord.lbot3;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,9 +12,8 @@ import java.util.function.Supplier;
 
 import javax.security.auth.login.LoginException;
 
-import linus.discord.lbot3.events.MessageReceivedEvt;
-import linus.discord.lbot3.events.ShutdownEvt;
-import linus.discord.lbot3.events.StartEvt;
+import linus.discord.lbot3.events.*;
+import linus.discord.lbot3.plugins.*;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -23,12 +24,34 @@ import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
-public class Bot {
-		
+public class Bot{
+
 	private JDABuilder builder;
 	private JDA jda;
 	
-	private List<Plugin> plugins = new ArrayList<>();
+	private List<Plugin> plugins = new ArrayList<>(Arrays.asList(
+			new StartPlugin(),
+			new HelpPlugin(),
+			new PrintPlugin(),
+			new SpeakPlugin(),
+			new SpecificCommandPlugin(),
+			new SpecificCommandsPlugin(),
+			new CreateCommandPlugin(),
+			new CustomCommandPlugin(),
+			new DeleteCommandPlugin(),
+			new CustomCommandsPlugin(),
+			new OnlinePlugin(),
+			new ServerIDPlugin(),
+			new ChannelIDPlugin(),
+			new UserIDPlugin(),
+			new ClearPlugin(),
+			new MatchPlugin(),
+			new DecidePlugin(),
+			new SlapPlugin(),
+			new SpamPlugin(),
+			new SavePlugin(),
+			new ShutdownPlugin()
+		));
 	
 	private final Map<String, Map<String, String>> customCommands = new HashMap<>();
 	private final Map<String, String> specificCommands = new HashMap<>();
@@ -36,7 +59,7 @@ public class Bot {
 	public Bot(String token) {
 		builder = new JDABuilder(AccountType.BOT)
 			.addEventListener(new ListenerWrapper(this))
-			.setToken(token);	
+			.setToken(token);
 	}
 	
 	public Map<String, String> getSpecificCommands(){
@@ -135,4 +158,17 @@ public class Bot {
 		
 	}
 	
+	private static String loadAuth() {
+		InputStream in = Bot.class.getResourceAsStream("auth.txt");
+		try {
+			return new String(in.readAllBytes());
+		} catch (IOException e) {
+			throw new SecurityException("Couldn't load auth", e);
+		}
+	}
+	
+	public static void main(String[] args) {
+		new Bot(loadAuth()).start();
+	}
+
 }

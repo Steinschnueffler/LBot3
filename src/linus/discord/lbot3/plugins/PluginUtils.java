@@ -37,4 +37,13 @@ public class PluginUtils {
 	public static void loadCustomCommands(Bot b, String id) {
 		b.getAllCustomCommands().replace(id, ResourceLoader.loadCustomCommands(id));
 	}
+	
+	public static String normalize(String str) {
+		StringBuilder builder = new StringBuilder(str.length());
+		str.codePoints()
+			.filter(Character::isDefined)
+			.map(i -> Character.getName(i).codePointAt(0))
+			.forEach(i -> builder.append(String.valueOf(Character.toChars(i))));
+		return builder.toString();
+	}
 }
