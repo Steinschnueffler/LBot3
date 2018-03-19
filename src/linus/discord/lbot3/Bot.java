@@ -45,6 +45,7 @@ public class Bot{
 			new ChannelIDPlugin(),
 			new UserIDPlugin(),
 			new ClearPlugin(),
+			new BinaryPlugin(),
 			new MatchPlugin(),
 			new DecidePlugin(),
 			new SlapPlugin(),

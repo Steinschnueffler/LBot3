@@ -37,4 +37,11 @@ public class PluginUtils {
 	public static void loadCustomCommands(Bot b, String id) {
 		b.getAllCustomCommands().replace(id, ResourceLoader.loadCustomCommands(id));
 	}
+	
+	public static String toBinary(String str) {
+		StringBuilder sb = new StringBuilder();
+		str.chars()
+			.forEach(i -> sb.append(Integer.toBinaryString(i)));
+		return sb.toString();
+	}
 }
