@@ -2,6 +2,8 @@ package linus.discord.lbot3.plugins;
 
 import linus.discord.lbot3.Plugin;
 import linus.discord.lbot3.events.MessageReceivedEvt;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.requests.restaction.pagination.MessagePaginationAction;
 
 public class ClearPlugin extends Plugin{
 
@@ -15,14 +17,31 @@ public class ClearPlugin extends Plugin{
 	@Override
 	protected void onMessageWithNameReceived(MessageReceivedEvt evt) {
 		new Thread(() -> {
-			final int[] counter = new int[1];
-			evt.channel.getIterableHistory().forEach(e -> {
-				e.delete().queue();
-				counter[0]++;
-			});
-			PluginUtils.print("Cleared " + counter[0] + " Messages!", evt.channel);
+			int counter = 0;
+			if(!evt.content.isEmpty()) {
+				try {
+					int number = Integer.parseInt(evt.content);
+					MessagePaginationAction action = evt.channel.getIterableHistory();
+					for(Message m : action) {
+						if(counter < number) {
+							m.delete().queue();
+							counter++;
+						}else
+							break;
+					}
+				}catch(NumberFormatException e) {
+					PluginUtils.print(evt.content + " is not a valid number", evt.channel);
+					return;
+				}
+			}else {
+				MessagePaginationAction action = evt.channel.getIterableHistory();
+				for(Message m : action) {
+					m.delete().queue();
+					counter++;
+				}
+			}
+			PluginUtils.print("Cleared " + counter + " messages", evt.channel);
 		}).start();
-		PluginUtils.print("Clear process thread started...", evt.channel);
 	}
 
 }
