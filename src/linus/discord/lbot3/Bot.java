@@ -46,6 +46,7 @@ public class Bot{
 			new UserIDPlugin(),
 			new ClearPlugin(),
 			new BinaryPlugin(),
+			new AsciiPlugin(),
 			new MatchPlugin(),
 			new DecidePlugin(),
 			new SlapPlugin(),

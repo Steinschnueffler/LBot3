@@ -1,6 +1,7 @@
 package linus.discord.lbot3.plugins;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import linus.discord.lbot3.Bot;
 import linus.discord.lbot3.resource.ResourceLoader;
@@ -57,6 +58,28 @@ public class PluginUtils {
 		for(int i = 0; i < count; i++)
 			sb.append(s);
 		return sb.toString();
+	}
+	
+	public static String toAscii(String str) throws NumberFormatException{
+		StringBuilder sb = new StringBuilder();
+		for(String s : split(str, 8))
+			sb.append(toBinary(s));
+		return sb.toString();
+	}
+	
+	private static String[] split(String str, int count) {
+		ArrayList<String> list = new ArrayList<>();
+		int pos = 0;
+		while(pos + count < str.length()) {
+			list.add(str.substring(pos, pos + count));
+			pos += count;
+		}
+		return list.toArray(new String[list.size()]);
+	}
+	
+	public static char toByte(String binary) throws NumberFormatException{
+		byte b = (byte) Integer.parseInt(binary, 2);
+		return (char) b;
 	}
 	
 }
